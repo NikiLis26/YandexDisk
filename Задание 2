@@ -1,0 +1,25 @@
+import requests
+import os
+
+def upload_to_yadisk(token, file_path):
+    base_url = "https://cloud-api.yandex.net/v1/disk/resources/upload"
+    headers = {"Authorization": f"OAuth {token}"}
+
+    file_name = os.path.basename(file_path)
+    params = {'path': file_name, 'overwrite': True}  # overwrite в случае, если файл с таким именем уже существует
+
+    response = requests.get(base_url, headers=headers, params=params)
+
+    if response.status_code == 200:
+        upload_url = response.json().get('href')
+        with open(file_path, 'rb') as f:
+            requests.put(upload_url, files={"file": f})
+        print("Файл успешно загружен на Яндекс.Диск.")
+    else:
+        print("Ошибка при получении ссылки для загрузки.")
+
+
+# Использование
+token = "ваш_OAuth-токен_здесь"
+file_path = "путь_к_вашему_файлу_здесь"
+upload_to_yadisk(token, file_path)
