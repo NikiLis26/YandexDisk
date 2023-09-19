@@ -20,6 +20,6 @@ def upload_to_yadisk(token, file_path):
 
 
 # Использование
-token = "ваш_OAuth-токен_здесь"
-file_path = "путь_к_вашему_файлу_здесь"
+token = "ваш_OAuth"
+file_path = "путь"
 upload_to_yadisk(token, file_path)
